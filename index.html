@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyRun - تشغيل Python أونلاين</title>
+    <style>
+        :root {
+            --primary: #306998;
+            --secondary: #FFD43B;
+            --dark: #0A2A4A;
+            --light: #F0F8FF;
+            --success: #4CAF50;
+            --danger: #F44336;
+            --warning: #FFC107;
+            --info: #2196F3;
+            --console-bg: #1E1E1E;
+            --console-text: #F0F8FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            direction: ltr; /* سنعتمد الاتجاه الافتراضي للكود */
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 24px;
+            color: var(--secondary);
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .status-bar {
+            background-color: var(--dark);
+            color: white;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 15px;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .settings-group {
+            margin-bottom: 15px;
+        }
+        
+        .settings-group h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+        
+        .settings-item {
+            margin-bottom: 10px;
+        }
+        
+        .settings-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .editor-toolbar {
+            padding: 10px;
+            background-color: #f0f0f0;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: black;
+        }
+        
+        .editor {
+            flex: 1;
+            overflow: auto;
+            border: none;
+        }
+        
+        #code-editor {
+            width: 100%;
+            height: 100%;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            border: none;
+            resize: none;
+        }
+        
+        .output-container {
+            display: flex;
+            flex-direction: column;
+            height: 40%;
+            border-top: 1px solid #ddd;
+        }
+        
+        .output-tabs {
+            display: flex;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+        }
+        
+        .tab.active {
+            background-color: var(--console-bg);
+            color: white;
+        }
+        
+        .output-content {
+            flex: 1;
+            background-color: var(--console-bg);
+            color: var(--console-text);
+            padding: 15px;
+            overflow: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .console-line {
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        .warning {
+            color: #ffd93d;
+        }
+        
+        .success {
+            color: #6bcb77;
+        }
+        
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
+        
+        .file-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        
+        .file-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .plots-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .plot-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .plot-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🐍</div>
+                <div class="logo-text">PyRun</div>
+            </div>
+            <div>
+                <button class="btn btn-secondary">تسجيل الدخول</button>
+            </div>
+        </header>
+        
+        <div class="status-bar">
+            <div class="status-item">
+                <span>⏱️</span>
+                <span id="time-left">02:00:00</span>
+            </div>
+            <div class="status-item">
+                <span>💾</span>
+                <span id="memory-usage">512MB / 8GB</span>
+            </div>
+            <div class="status-item">
+                <span>💻</span>
+                <span id="cpu-usage">0%</span>
+            </div>
+            <div class="status-item">
+                <span id="status-text">جاهز للتشغيل</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="settings-group">
+                    <h3>إعدادات التشغيل</h3>
+                    <div class="settings-item">
+                        <label>إصدار Python</label>
+                        <select id="python-version">
+                            <option value="3.10">Python 3.10</option>
+                            <option value="3.11" selected>Python 3.11</option>
+                            <option value="3.12">Python 3.12</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label>الذاكرة المخصصة</label>
+                        <select id="memory-limit">
+                            <option value="512">512 MB</option>
+                            <option value="1024" selected>1 GB</option>
+                            <option value="2048">2 GB</option>
+                            <option value="4096">4 GB</option>
+                            <option value="8192">8 GB</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label>رفع ملفات</label>
+                        <input type="file" id="file-upload" accept=".py,.txt">
+                    </div>
+                    <div class="settings-item">
+                        <label>رفع requirements.txt</label>
+                        <input type="file" id="requirements-upload" accept=".txt">
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <h3>إدارة الجلسة</h3>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="runCode()">
+                        <span>▶</span> تشغيل الكود
+                    </button>
+                    <button class="btn btn-danger" style="width: 100%;" onclick="stopCode()">
+                        <span>⏹️</span> إيقاف التشغيل
+                    </button>
+                    <button class="btn btn-secondary" style="width: 100%;" onclick="restartSession()">
+                        <span>🔄</span> إعادة التشغيل
+                    </button>
+                    <button class="btn btn-success" style="width: 100%;" onclick="saveOutput()">
+                        <span>💾</span> حفظ المخرجات
+                    </button>
+                    <button class="btn btn-warning" style="width: 100%;" onclick="shareSnapshot()">
+                        <span>🔗</span> مشاركة النتائج
+                    </button>
+                </div>
+            </div>
+            
+            <div class="editor-container">
+                <div class="editor-toolbar">
+                    <button class="btn btn-secondary" onclick="clearEditor()">
+                        <span>🗑️</span> مسح المحرر
+                    </button>
+                    <button class="btn btn-secondary" onclick="insertTemplate()">
+                        <span>📋</span> إدراج قالب
+                    </button>
+                </div>
+                <div class="editor">
+                    <textarea id="code-editor" placeholder="أكتب كود Python هنا أو قم برفع ملف..."># مرحبًا بك في PyRun
+# اكتب كود Python هنا ثم انقر على تشغيل
+
+print("Hello, World!")
+
+# مثال بسيط لرسم بياني
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title("Sine Wave")
+plt.show()</textarea>
+                </div>
+                
+                <div class="output-container">
+                    <div class="output-tabs">
+                        <div class="tab active" onclick="switchTab('console')">Console</div>
+                        <div class="tab" onclick="switchTab('files')">Files</div>
+                        <div class="tab" onclick="switchTab('plots')">Plots</div>
+                    </div>
+                    
+                    <div id="console-tab" class="output-content">
+                        <div class="console-line">>> جاهز لتشغيل كود Python. انقر على "تشغيل الكود".</div>
+                    </div>
+                    
+                    <div id="files-tab" class="output-content hidden">
+                        <div class="files-grid">
+                            <div class="file-item">
+                                <div class="file-icon">📁</div>
+                                <div>workspace</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="plots-tab" class="output-content hidden">
+                        <div class="plots-container">
+                            <div class="plot-item">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZmlsbD0iIzMzMyI+سيظهر الرسم هنا بعد التشغيل</dGV4dD48L3N2Zz4=" alt="Plot placeholder" class="plot-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // محاكاة وظائف الموقع (في التطبيق الحقيقي، سيتم التواصل مع الخادم)
+        function runCode() {
+            const code = document.getElementById('code-editor').value;
+            const consoleOutput = document.getElementById('console-tab');
+            
+            // مسح المحتوى القديم
+            consoleOutput.innerHTML = '<div class="console-line">>> بدء تشغيل الكود...</div>';
+            
+            // محاكاة إخراج الكونسول
+            setTimeout(() => {
+                consoleOutput.innerHTML += '<div class="console-line">Hello, World!</div>';
+            }, 500);
+            
+            // محاكاة إنهاء التشغيل
+            setTimeout(() => {
+                consoleOutput.innerHTML += '<div class="console-line success">>> تم الانتهاء من التشغيل بنجاح.</div>';
+                
+                // إضافة ملفات مثال (في الواقع سيتم إنشاؤها من الكود)
+                const filesTab = document.getElementById('files-tab');
+                filesTab.innerHTML = `
+                    <div class="files-grid">
+                        <div class="file-item">
+                            <div class="file-icon">📁</div>
+                            <div>workspace</div>
+                        </div>
+                        <div class="file-item">
+                            <div class="file-icon">📊</div>
+                            <div>data.csv</div>
+                        </div>
+                        <div class="file-item">
+                            <div class="file-icon">📈</div>
+                            <div>plot.png</div>
+                        </div>
+                    </div>
+                `;
+                
+                // إضافة رسوم بيانية مثال
+                const plotsTab = document.getElementById('plots-tab');
+                plotsTab.innerHTML = `
+                    <div class="plots-container">
+                        <div class="plot-item">
+                            <img src="https://via.placeholder.com/300x200/306998/ffffff?text=Sine+Wave+Plot" alt="Sample plot" class="plot-image">
+                        </div>
+                    </div>
+                `;
+            }, 1500);
+            
+            // تحديث شريط الحالة
+            updateStatus('جاري التشغيل', 'running');
+        }
+        
+        function stopCode() {
+            const consoleOutput = document.getElementById('console-tab');
+            consoleOutput.innerHTML += '<div class="console-line warning">>> تم إيقاف التشغيل بواسطة المستخدم.</div>';
+            updateStatus('متوقف', 'stopped');
+        }
+        
+        function restartSession() {
+            document.getElementById('console-tab').innerHTML = '<div class="console-line">>> جاهز لتشغيل كود Python. انقر على "تشغيل الكود".</div>';
+            document.getElementById('files-tab').innerHTML = '<div class="files-grid"><div class="file-item"><div class="file-icon">📁</div><div>workspace</div></div></div>';
+            document.getElementById('plots-tab').innerHTML = '<div class="plots-container"><div class="plot-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZmlsbD0iIzMzMyI+سيظهر الرسم هنا بعد التشغيل</dGV4dD48L3N2Zz4=" alt="Plot placeholder" class="plot-image"></div></div>';
+            updateStatus('جاهز للتشغيل', 'ready');
+        }
+        
+        function clearEditor() {
+            document.getElementById('code-editor').value = '';
+        }
+        
+        function insertTemplate() {
+            const template = `# مثال كود Python مع matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+# إنشاء بيانات عشوائية
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+# إنشاء الرسم البياني
+plt.figure(figsize=(8, 4))
+plt.plot(x, y, label='Sine wave')
+plt.title('Sine Wave Example')
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.legend()
+plt.show()
+
+print("تم إنشاء الرسم البياني بنجاح!")`;
+            
+            document.getElementById('code-editor').value = template;
+        }
+        
+        function saveOutput() {
+            alert('سيتم حفظ المخرجات كملف نصي');
+        }
+        
+        function shareSnapshot() {
+            alert('سيتم إنشاء رابط للمشاركة');
+        }
+        
+        function switchTab(tabName) {
+            // إخفاء كل التبويبات
+            document.getElementById('console-tab').classList.add('hidden');
+            document.getElementById('files-tab').classList.add('hidden');
+            document.getElementById('plots-tab').classList.add('hidden');
+            
+            // إلغاء تنشيط كل الأزرار
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // إظهار التبويب المحدد وتنشيطه
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
+        
+        function updateStatus(text, status) {
+            document.getElementById('status-text').textContent = text;
+            
+            // تغيير لون شريط الحالة حسب الحالة
+            const statusBar = document.querySelector('.status-bar');
+            statusBar.style.backgroundColor = 
+                status === 'running' ? '#2E7D32' : 
+                status === 'stopped' ? '#D32F2F' : '#0A2A4A';
+        }
+        
+        // معالجة رفع الملفات
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file && file.name.endsWith('.py')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('code-editor').value = e.target.result;
+                };
+                reader.readAsText(file);
+            } else {
+                alert('يرجى رفع ملف Python صالح (امتداد .py)');
+            }
+        });
+        
+        document.getElementById('requirements-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert(`سيتم تثبيت المكتبات من ${file.name}`);
+                // في التطبيق الحقيقي، سيتم إرسال الملف إلى الخادم لتثبيت المكتبات
+            }
+        });
+    </script>
+</body>
+</html>
