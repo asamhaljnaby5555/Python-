@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الذكاء الاصطناعي للبرمجة</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4cb5ae;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .chat-section {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .chat-header h2 {
+            color: var(--primary-color);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 400px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: auto;
+            border-bottom-right-radius: 0;
+        }
+        
+        .ai-message {
+            background-color: #f5f5f5;
+            margin-right: auto;
+            border-bottom-left-radius: 0;
+        }
+        
+        .message-content {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .message pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            direction: ltr;
+        }
+        
+        .message code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 2px 5px;
+            border-radius: 3px;
+            direction: ltr;
+            display: block;
+            white-space: pre-wrap;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .chat-input button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .tools-section {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tools-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tools-header h2 {
+            color: var(--primary-color);
+        }
+        
+        .language-selector {
+            margin-bottom: 15px;
+        }
+        
+        .language-selector select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .code-editor {
+            margin-bottom: 15px;
+        }
+        
+        .code-editor textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            direction: ltr;
+        }
+        
+        .generate-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .generate-btn:hover {
+            background-color: #3a9d96;
+        }
+        
+        .output {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+            direction: ltr;
+        }
+        
+        .output pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>منصة الذكاء الاصطناعي للبرمجة</h1>
+            <p>أنشئ أدوات برمجية بجميع اللغات وأحصل على إجابات لأسئلتك البرمجية</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="chat-section">
+                <div class="chat-header">
+                    <h2>محادثة مع الذكاء الاصطناعي</h2>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <div class="message-content">
+                            مرحباً! أنا مساعدك البرمجي الذكي. كيف يمكنني مساعدتك اليوم؟
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="اكتب سؤالك هنا...">
+                    <button id="sendButton">إرسال</button>
+                </div>
+            </div>
+            
+            <div class="tools-section">
+                <div class="tools-header">
+                    <h2>منشئ الأدوات البرمجية</h2>
+                </div>
+                
+                <div class="language-selector">
+                    <select id="languageSelect">
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="html">HTML/CSS</option>
+                        <option value="java">Java</option>
+                        <option value="php">PHP</option>
+                        <option value="cpp">C++</option>
+                    </select>
+                </div>
+                
+                <div class="code-editor">
+                    <textarea id="codeInput" placeholder="اكتب وصف الأداة التي تريد إنشاءها..."></textarea>
+                </div>
+                
+                <button class="generate-btn" id="generateButton">إنشاء الكود</button>
+                
+                <div class="tools-header">
+                    <h2>الناتج</h2>
+                </div>
+                
+                <div class="output" id="codeOutput">
+                    <p>سيظهر الكود المُنشأ هنا...</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 منصة الذكاء الاصطناعي للبرمجة. جميع الحقوق محفوظة.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chatMessages');
+            const userInput = document.getElementById('userInput');
+            const sendButton = document.getElementById('sendButton');
+            const codeInput = document.getElementById('codeInput');
+            const generateButton = document.getElementById('generateButton');
+            const codeOutput = document.getElementById('codeOutput');
+            const languageSelect = document.getElementById('languageSelect');
+            
+            // إرسال رسالة عند الضغط على زر الإرسال
+            sendButton.addEventListener('click', handleUserMessage);
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleUserMessage();
+                }
+            });
+            
+            // إنشاء الكود عند الضغط على الزر
+            generateButton.addEventListener('click', generateCode);
+            
+            function handleUserMessage() {
+                const message = userInput.value.trim();
+                if (message === '') return;
+                
+                // إضافة رسالة المستخدم إلى الدردشة
+                addMessage(message, 'user');
+                
+                // محاكاة رد الذكاء الاصطناعي
+                setTimeout(() => {
+                    const aiResponse = generateAIResponse(message);
+                    addMessage(aiResponse, 'ai');
+                }, 1000);
+                
+                // مسح حقل الإدخال
+                userInput.value = '';
+            }
+            
+            function addMessage(content, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+                
+                const messageContent = document.createElement('div');
+                messageContent.classList.add('message-content');
+                
+                // التحقق مما إذا كانت الرسالة تحتوي على كود
+                if (content.includes('```')) {
+                    const parts = content.split('```');
+                    for (let i = 0; i < parts.length; i++) {
+                        if (i % 2 === 0) {
+                            // نص عادي
+                            messageContent.appendChild(document.createTextNode(parts[i]));
+                        } else {
+                            // كود
+                            const pre = document.createElement('pre');
+                            const code = document.createElement('code');
+                            code.textContent = parts[i];
+                            pre.appendChild(code);
+                            messageContent.appendChild(pre);
+                        }
+                    }
+                } else {
+                    messageContent.textContent = content;
+                }
+                
+                messageDiv.appendChild(messageContent);
+                chatMessages.appendChild(messageDiv);
+                
+                // التمرير إلى الأسفل
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function generateAIResponse(message) {
+                // محاكاة استجابة الذكاء الاصطناعي بناءً على السؤال
+                const lowerMessage = message.toLowerCase();
+                
+                if (lowerMessage.includes('برنامج') || lowerMessage.includes('كود') || lowerMessage.includes('برمجة')) {
+                    return 'يمكنني مساعدتك في إنشاء الأكواد البرمجية. ما هي اللغة التي تريد استخدامها وما هو نوع البرنامج الذي تريد إنشاءه؟';
+                } else if (lowerMessage.includes('html') || lowerMessage.includes('css')) {
+                    return `إليك نموذج لصفحة ويب أساسية:
+\`\`\`
+<!DOCTYPE html>
+<html>
+<head>
+    <title>صفحتي</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #336699; }
+    </style>
+</head>
+<body>
+    <h1>مرحباً بالعالم!</h1>
+    <p>هذه صفحتي الأولى.</p>
+</body>
+</html>
+\`\`\``;
+                } else if (lowerMessage.includes('javascript') || lowerMessage.includes('جافاسكريبت')) {
+                    return `إليك دالة JavaScript بسيطة:
+\`\`\`
+function greet(name) {
+    return 'مرحباً ' + name + '!';
+}
+
+console.log(greet('أحمد'));
+\`\`\``;
+                } else if (lowerMessage.includes('python') || lowerMessage.includes('بايثون')) {
+                    return `إليك برنامج Python بسيط:
+\`\`\`
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+print(factorial(5))
+\`\`\``;
+                } else if (lowerMessage.includes('java')) {
+                    return `إليك برنامج Java بسيط:
+\`\`\`
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("مرحباً بالعالم!");
+    }
+}
+\`\`\``;
+                } else {
+                    return 'شكراً على سؤالك. يمكنني مساعدتك في مواضيع البرمجة وإنشاء الأكواد. هل هناك موضوع معين تريد المساعدة فيه؟';
+                }
+            }
+            
+            function generateCode() {
+                const description = codeInput.value.trim();
+                const language = languageSelect.value;
+                
+                if (description === '') {
+                    codeOutput.innerHTML = '<p>الرجاء إدخال وصف للأداة التي تريد إنشاءها.</p>';
+                    return;
+                }
+                
+                // محاكاة إنشاء الكود
+                let generatedCode = '';
+                let codeTitle = '';
+                
+                switch(language) {
+                    case 'python':
+                        codeTitle = 'كود Python:';
+                        generatedCode = `# ${description}\n\ndef main():\n    print("مرحباً من بايثون")\n\nif __name__ == "__main__":\n    main()`;
+                        break;
+                    case 'javascript':
+                        codeTitle = 'كود JavaScript:';
+                        generatedCode = `// ${description}\n\nfunction main() {\n    console.log("مرحباً من جافاسكريبت");\n}\n\nmain();`;
+                        break;
+                    case 'html':
+                        codeTitle = 'كود HTML/CSS:';
+                        generatedCode = `<!-- ${description} -->\n\n<!DOCTYPE html>\n<html>\n<head>\n    <title>صفحتي</title>\n    <style>\n        body { font-family: Arial, sans-serif; margin: 40px; }\n        .container { max-width: 800px; margin: 0 auto; }\n    </style>\n</head>\n<body>\n    <div class="container">\n        <h1>مرحباً!</h1>\n        <p>هذه صفحتي الأولى.</p>\n    </div>\n</body>\n</html>`;
+                        break;
+                    case 'java':
+                        codeTitle = 'كود Java:';
+                        generatedCode = `// ${description}\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println("مرحباً من جافا");\n    }\n}`;
+                        break;
+                    case 'php':
+                        codeTitle = 'كود PHP:';
+                        generatedCode = `<?php\n// ${description}\n\necho "مرحباً من PHP!";\n\n?>`;
+                        break;
+                    case 'cpp':
+                        codeTitle = 'كود C++:';
+                        generatedCode = `// ${description}\n\n#include <iostream>\n\nint main() {\n    std::cout << "مرحباً من C++" << std::endl;\n    return 0;\n}`;
+                        break;
+                }
+                
+                // عرض الكود المُنشأ
+                codeOutput.innerHTML = `
+                    <p><strong>${codeTitle}</strong></p>
+                    <pre><code>${generatedCode}</code></pre>
+                `;
+                
+                // إضافة إشعار إلى المحادثة
+                addMessage(`لقد قمت بإنشاء كود ${language} بناءً على طلبك: "${description}"`, 'ai');
+            }
+        });
+    </script>
+</body>
+  </html>
