@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tan Love U | خدمات الرشق المتقدمة</title>
+    <title>ASTRH Love U | خدمات الرشق</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
@@ -17,7 +17,6 @@
             --text: #ffffff;
             --success: #00b894;
             --error: #d63031;
-            --warning: #fdcb6e;
         }
 
         * {
@@ -35,12 +34,12 @@
             align-items: center;
             color: var(--text);
             overflow-x: hidden;
-            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 500px;
+            padding: 20px;
         }
 
         .card {
@@ -76,7 +75,6 @@
         .header p {
             color: #b2bec3;
             font-size: 14px;
-            line-height: 1.6;
         }
 
         .tabs {
@@ -85,12 +83,10 @@
             border-radius: 12px;
             padding: 5px;
             margin-bottom: 25px;
-            flex-wrap: wrap;
         }
 
         .tab {
             flex: 1;
-            min-width: 120px;
             padding: 12px;
             text-align: center;
             cursor: pointer;
@@ -98,7 +94,6 @@
             transition: 0.3s;
             color: #b2bec3;
             font-weight: 600;
-            margin: 2px;
         }
 
         .tab.active {
@@ -139,79 +134,6 @@
             background: #2d3436;
         }
 
-        .channel-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .channel-input-group input {
-            flex: 1;
-        }
-
-        .channel-input-group button {
-            padding: 0 20px;
-            background: var(--primary);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .channel-input-group button:hover {
-            background: var(--secondary);
-        }
-
-        .posts-container {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-        }
-
-        .post-item {
-            padding: 12px;
-            margin-bottom: 10px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .post-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .post-url {
-            color: #74b9ff;
-            word-break: break-all;
-            font-size: 14px;
-        }
-
-        .post-count {
-            color: var(--warning);
-            font-weight: bold;
-        }
-
-        .info-box {
-            background: rgba(0, 184, 148, 0.1);
-            border: 1px solid var(--success);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .info-box.warning {
-            background: rgba(253, 203, 110, 0.1);
-            border: 1px solid var(--warning);
-        }
-
         .captcha-question {
             margin-bottom: 15px;
             text-align: center;
@@ -249,18 +171,17 @@
             border-color: var(--success);
             box-shadow: 0 0 15px rgba(0, 184, 148, 0.5);
         }
-
+        
+        /* Specific Icon Styles for better visibility */
         .fa-flag { color: #eb4d4b; } 
         .fa-tree { color: #00b894; } 
         .fa-car { color: #ffeaa7; } 
-        .fa-server { color: #74b9ff; } 
+        .fa-s { color: #74b9ff; } 
         .fa-desktop { color: #a29bfe; } 
         .fa-motorcycle { color: #ff7675; } 
         .fa-plane { color: #55efc4; } 
-        .fa-shoe-prints { color: #fd79a8; }
-        .fa-telegram { color: #0088cc; }
-        .fa-link { color: #00b894; }
-        .fa-bolt { color: #fdcb6e; }
+        .fa-shoe-prints { color: #fd79a8; } 
+
 
         .btn {
             width: 100%;
@@ -286,14 +207,11 @@
             cursor: not-allowed;
         }
 
-        .btn-warning {
-            background: linear-gradient(45deg, #e17055, #fdcb6e);
-        }
-
         .result {
             margin-top: 20px;
             padding: 15px;
             border-radius: 12px;
+            display: none;
             font-size: 14px;
             line-height: 1.6;
         }
@@ -308,12 +226,6 @@
             background: rgba(214, 48, 49, 0.2);
             border: 1px solid var(--error);
             color: #ff7675;
-        }
-
-        .result.warning {
-            background: rgba(253, 203, 110, 0.2);
-            border: 1px solid var(--warning);
-            color: #ffeaa7;
         }
 
         .hidden { display: none; }
@@ -337,31 +249,6 @@
             font-size: 12px;
             color: rgba(255,255,255,0.3);
         }
-
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .status-item {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .status-item .value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .status-item .label {
-            font-size: 12px;
-            color: #b2bec3;
-        }
     </style>
 </head>
 <body>
@@ -369,103 +256,36 @@
 <div class="container">
     <div class="card">
         <div class="header">
-            <h1><i class="fab fa-telegram"></i> Tan Love U</h1>
-            <p>أداة متقدمة لفحص القنوات ورشق المنشورات - يدعم جميع قنوات Telegram العامة</p>
+            <h1><i class="fas fa-rocket"></i> Tan Love U</h1>
+            <p>لوحة الرشق الآلي السريع والآمن</p>
         </div>
 
         <div class="tabs">
-            <div class="tab active" onclick="switchTab('channel')">فحص القناة</div>
-            <div class="tab" onclick="switchTab('massAttack')">هجوم جماعي</div>
+            <div class="tab active" onclick="switchTab('order')">طلب جديد</div>
             <div class="tab" onclick="switchTab('status')">متابعة الطلب</div>
-            <div class="tab" onclick="switchTab('settings')">الإعدادات</div>
         </div>
 
-        <!-- تبويب فحص القناة -->
-        <div id="channelSection">
-            <div class="info-box">
-                <i class="fas fa-info-circle"></i> أدخل معرف القناة (مثال: @channel أو https://t.me/channel) وسيتم جلب جميع المنشورات تلقائياً
+        <div id="orderSection">
+            <div class="form-group">
+                <label>نوع الخدمة</label>
+                <select id="serviceId" class="form-select">
+                    <option value="865">تفاعلات إيجابية (+)</option>
+                    <option value="866">تفاعلات سلبية (-)</option>
+                    <option value="867"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>رابط المنشور</label>
+                <input type="url" id="link" class="form-control" placeholder="https://t.me/...">
+            </div>
+            <div class="form-group">
+                <label>الكمية (10 - 5000)</label>
+                <input type="number" id="quantity" class="form-control" placeholder="100" min="10" max="5000">
             </div>
             
             <div class="form-group">
-                <label>معرف القناة</label>
-                <div class="channel-input-group">
-                    <input type="text" id="channelInput" class="form-control" placeholder="@channel أو https://t.me/channel">
-                    <button onclick="fetchChannelPosts()" id="fetchBtn">
-                        <i class="fas fa-search"></i> فحص
-                    </button>
-                </div>
-            </div>
-
-            <div class="posts-container hidden" id="postsContainer">
-                <div style="text-align: center; margin-bottom: 10px; color: var(--warning);">
-                    <i class="fas fa-list"></i> المنشورات التي تم العثور عليها
-                </div>
-                <div id="postsList"></div>
-            </div>
-
-            <div class="form-group">
-                <div class="captcha-question" id="captchaQuestion">اضغط على أيقونة الـ <b>سيارة</b></div>
-                <div class="captcha-icons" id="captchaImagesChannel">
-                    <i class="captcha-icon fas fa-car" data-value="fas fa-car" onclick="selectCaptcha(this, 'channel')"></i>
-                    <i class="captcha-icon fas fa-tree" data-value="fas fa-tree" onclick="selectCaptcha(this, 'channel')"></i>
-                    <i class="captcha-icon fas fa-flag" data-value="fas fa-flag" onclick="selectCaptcha(this, 'channel')"></i>
-                    <i class="captcha-icon fas fa-motorcycle" data-value="fas fa-motorcycle" onclick="selectCaptcha(this, 'channel')"></i>
-                    <i class="captcha-icon fas fa-server" data-value="fas fa-server" onclick="selectCaptcha(this, 'channel')"></i>
-                    <i class="captcha-icon fas fa-shoe-prints" data-value="fas fa-shoe-prints" onclick="selectCaptcha(this, 'channel')"></i>
-                </div>
-                <input type="hidden" id="selectedCaptchaChannel" value="">
-            </div>
-
-            <button onclick="startMassAttack()" class="btn btn-warning hidden" id="massAttackBtn">
-                <i class="fas fa-bolt"></i> بدء الهجوم الجماعي على جميع المنشورات
-            </button>
-        </div>
-
-        <!-- تبويب الهجوم الجماعي -->
-        <div id="massAttackSection" class="hidden">
-            <div class="info-box warning">
-                <i class="fas fa-exclamation-triangle"></i> سيتم رشق <b>جميع المنشورات</b> التي تم العثور عليها في القناة بـ <b>10,000 تفاعل</b> لكل منشور
-            </div>
-
-            <div class="status-grid" id="attackStats">
-                <div class="status-item">
-                    <div class="value" id="totalPosts">0</div>
-                    <div class="label">عدد المنشورات</div>
-                </div>
-                <div class="status-item">
-                    <div class="value" id="attackedPosts">0</div>
-                    <div class="label">تم رشقها</div>
-                </div>
-                <div class="status-item">
-                    <div class="value" id="remainingPosts">0</div>
-                    <div class="label">متبقية</div>
-                </div>
-                <div class="status-item">
-                    <div class="value" id="totalReactions">0</div>
-                    <div class="label">إجمالي التفاعلات</div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>نوع التفاعل</label>
-                <select id="reactionType" class="form-select">
-                    <option value="positive">إعجابات 👍 (+)</option>
-                    <option value="negative">عدم إعجاب 👎 (-)</option>
-                    <option value="mixed">مزيج عشوائي</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <div class="captcha-question" id="captchaQuestionMass">اضغط على أيقونة الـ <b>دراجة</b></div>
-                <div class="captcha-icons" id="captchaImagesMass">
-                    <i class="captcha-icon fas fa-motorcycle" data-value="fas fa-motorcycle" onclick="selectCaptcha(this, 'mass')"></i>
-                    <i class="captcha-icon fas fa-plane" data-value="fas fa-plane" onclick="selectCaptcha(this, 'mass')"></i>
-                    <i class="captcha-icon fas fa-car" data-value="fas fa-car" onclick="selectCaptcha(this, 'mass')"></i>
-                    <i class="captcha-icon fas fa-tree" data-value="fas fa-tree" onclick="selectCaptcha(this, 'mass')"></i>
-                    <i class="captcha-icon fas fa-flag" data-value="fas fa-flag" onclick="selectCaptcha(this, 'mass')"></i>
-                    <i class="captcha-icon fas fa-server" data-value="fas fa-server" onclick="selectCaptcha(this, 'mass')"></i>
-                </div>
-                <input type="hidden" id="selectedCaptchaMass" value="">
+                <label id="captchaQuestion">اضغط على أيقونة الـ **دراجة**</label>
+                <div class="captcha-icons" id="captchaImagesOrder"><i class="captcha-icon fas fa-car" data-value="fas fa-car" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-tree" data-value="fas fa-tree" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-flag" data-value="fas fa-flag" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-motorcycle" data-value="fas fa-motorcycle" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-server" data-value="fas fa-server" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-shoe-prints" data-value="fas fa-shoe-prints" onclick="selectCaptcha(this, 'order')"></i></div>                <input type="hidden" id="selectedCaptchaOrder" value="">
             </div>
 
             <input type="hidden" id="nonceKey" value="2f7ef456b91ef604b4c48fac29a22755">
@@ -473,16 +293,12 @@
             <input type="hidden" id="fragmentKey1" value="8e146f4094ab0fa3">
             <input type="hidden" id="fragmentKey2" value="7a1cca436431f25a">
 
-            <button onclick="executeMassAttack()" class="btn btn-warning" id="executeAttackBtn">
-                <i class="fas fa-play"></i> بدء الهجوم (10,000 لكل منشور)
-            </button>
-            
-            <button onclick="stopAttack()" class="btn" id="stopAttackBtn" style="margin-top: 10px; display: none; background: var(--error);">
-                <i class="fas fa-stop"></i> إيقاف الهجوم
+            <button onclick="submitOrder()" class="btn" id="orderBtn">
+                <span class="btn-text">إرسال الطلب</span>
+                <div class="loader"></div>
             </button>
         </div>
 
-        <!-- تبويب متابعة الطلب -->
         <div id="statusSection" class="hidden">
             <div class="form-group">
                 <label>رقم الطلب (Order ID)</label>
@@ -490,84 +306,23 @@
             </div>
             
             <div class="form-group">
-                <div class="captcha-question" id="captchaQuestionStatus">اضغط على أيقونة الـ <b>علم</b></div>
-                <div class="captcha-icons" id="captchaImagesStatus">
-                    <i class="captcha-icon fas fa-flag" data-value="fas fa-flag" onclick="selectCaptcha(this, 'status')"></i>
-                    <i class="captcha-icon fas fa-tree" data-value="fas fa-tree" onclick="selectCaptcha(this, 'status')"></i>
-                    <i class="captcha-icon fas fa-motorcycle" data-value="fas fa-motorcycle" onclick="selectCaptcha(this, 'status')"></i>
-                    <i class="captcha-icon fas fa-car" data-value="fas fa-car" onclick="selectCaptcha(this, 'status')"></i>
-                    <i class="captcha-icon fas fa-server" data-value="fas fa-server" onclick="selectCaptcha(this, 'status')"></i>
-                    <i class="captcha-icon fas fa-shoe-prints" data-value="fas fa-shoe-prints" onclick="selectCaptcha(this, 'status')"></i>
-                </div>
-                <input type="hidden" id="selectedCaptchaStatus" value="">
+                <label id="captchaQuestionStatus">اضغط على أيقونة الـ **دراجة**</label>
+                <div class="captcha-icons" id="captchaImagesStatus"><i class="captcha-icon fas fa-shoe-prints" data-value="fas fa-shoe-prints" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-tree" data-value="fas fa-tree" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-motorcycle" data-value="fas fa-motorcycle" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-car" data-value="fas fa-car" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-flag" data-value="fas fa-flag" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-server" data-value="fas fa-server" onclick="selectCaptcha(this, 'status')"></i></div>                <input type="hidden" id="selectedCaptchaStatus" value="">
             </div>
 
             <button onclick="checkStatus()" class="btn" id="statusBtn">
-                <i class="fas fa-sync-alt"></i> فحص الحالة
+                <span class="btn-text">فحص الحالة</span>
+                <div class="loader"></div>
             </button>
         </div>
 
-        <!-- تبويب الإعدادات -->
-        <div id="settingsSection" class="hidden">
-            <div class="form-group">
-                <label>عدد التفاعلات لكل منشور</label>
-                <input type="number" id="reactionsPerPost" class="form-control" value="10000" min="1000" max="50000">
-            </div>
-            
-            <div class="form-group">
-                <label>تأخير بين المنشورات (بالثواني)</label>
-                <input type="number" id="delayBetweenPosts" class="form-control" value="2" min="1" max="10">
-            </div>
-            
-            <div class="form-group">
-                <label>عدد محاولات الإعادة عند الفشل</label>
-                <input type="number" id="retryAttempts" class="form-control" value="3" min="1" max="10">
-            </div>
-            
-            <button onclick="saveSettings()" class="btn">
-                <i class="fas fa-save"></i> حفظ الإعدادات
-            </button>
-        </div>
-
-        <div id="resultBox" class="result hidden"></div>
+        <div id="resultBox" class="result"></div>
     </div>
-    <div class="footer">تم البرمجة بواسطة تان | للأغراض التعليمية فقط</div>
+    <div class="footer">تم البرمجة بواسطة ASTRH</div>
 </div>
 
 <script>
-    // المتغيرات العامة
-    let channelPosts = [];
-    let currentChannel = '';
-    let isAttackRunning = false;
-    let attackInterval;
-    let settings = {
-        reactionsPerPost: 10000,
-        delayBetweenPosts: 2,
-        retryAttempts: 3
-    };
 
-    // تحميل الإعدادات من localStorage
-    function loadSettings() {
-        const saved = localStorage.getItem('tanloveu_settings');
-        if (saved) {
-            settings = JSON.parse(saved);
-            document.getElementById('reactionsPerPost').value = settings.reactionsPerPost;
-            document.getElementById('delayBetweenPosts').value = settings.delayBetweenPosts;
-            document.getElementById('retryAttempts').value = settings.retryAttempts;
-        }
-    }
-
-    // حفظ الإعدادات
-    function saveSettings() {
-        settings.reactionsPerPost = parseInt(document.getElementById('reactionsPerPost').value);
-        settings.delayBetweenPosts = parseInt(document.getElementById('delayBetweenPosts').value);
-        settings.retryAttempts = parseInt(document.getElementById('retryAttempts').value);
-        
-        localStorage.setItem('tanloveu_settings', JSON.stringify(settings));
-        showResult('✅ تم حفظ الإعدادات بنجاح', true);
-    }
-
-    // توليد سلسلة عشوائية
     function generateRandomString(length) {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -577,27 +332,30 @@
         }
         return result;
     }
-
-    // إنشاء نسخ متطابقة من البيانات
+    
+    // **NEW:** دالة لإنشاء 20 نسخة متطابقة من البيانات الأساسية
     function createRedundantCopies(coreData) {
         const copies = {};
         for(let i = 1; i <= 20; i++) {
             const key = 'c_' + i.toString().padStart(2, '0');
+            // تخزين نسخة متطابقة تمامًا
             copies[key] = JSON.parse(JSON.stringify(coreData));
         }
         return copies;
     }
 
-    // إنشاء حمولة بيانات ضخمة
+    // دالة لإنشاء حمولة بيانات ضخمة (Decoy Payload) مع البيانات الأساسية محشورة بداخلها
     function generateDecoyPayload(coreData) {
         const decoyData = {
-            _copies: createRedundantCopies(coreData),
+            _copies: createRedundantCopies(coreData), // 20 نسخة من البيانات الأساسية هنا
             _metrics: {
+                // بيانات مزيفة وعشوائية لزيادة حجم الحمولة
                 browser_agent: generateRandomString(50) + " (Secure Environment) " + generateRandomString(50),
                 screen_res: `${window.screen.width}x${window.screen.height}`,
                 cpu_cores: Math.floor(Math.random() * 8) + 2,
                 timestamp_fragment: Date.now() + Math.random(),
                 user_interaction_vector: generateRandomString(128),
+                // صفائف وسلاسل عشوائية ضخمة لزيادة صعوبة التحليل
                 decoy_vector_A: Array(256).fill(0).map(() => generateRandomString(20)),
                 decoy_vector_B: generateRandomString(1024),
                 decoy_buffer_C: generateRandomString(2048) + btoa(Math.random().toString()).repeat(5),
@@ -610,7 +368,6 @@
         return decoyData;
     }
 
-    // دالة التجزئة المعقدة
     function complexHash(timestamp, nonceKey, requestID) {
         const combinedString = requestID + timestamp.toString() + nonceKey;
         const reversed = combinedString.split('').reverse().join('');
@@ -620,7 +377,6 @@
         return finalHash;
     }
 
-    // تشفير البيانات
     function simpleEncryptFragment(data, key) {
         let encrypted = '';
         const base64Data = btoa(data);
@@ -632,11 +388,11 @@
         return encrypted;
     }
 
-    // تجزئة وتشفير الحمولة
     function fragmentAndEncryptPayload(data, key1, key2) {
         const jsonString = JSON.stringify(data);
         const len = jsonString.length;
         
+        // تقسيم الحمولة الضخمة إلى 3 أجزاء متساوية تقريباً
         const p1Len = Math.ceil(len / 3);
         const p2Len = Math.ceil((len - p1Len) / 2);
         
@@ -651,377 +407,203 @@
         };
     }
 
-    // اختيار كابتشا
     function selectCaptcha(iconElement, type) {
-        const parentId = `captchaImages${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        const parentId = type === 'order' ? 'captchaImagesOrder' : 'captchaImagesStatus';
         document.querySelectorAll(`#${parentId} .captcha-icon`).forEach(icon => {
             icon.classList.remove('selected');
         });
         iconElement.classList.add('selected');
         
-        const hiddenInputId = `selectedCaptcha${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        const hiddenInputId = type === 'order' ? 'selectedCaptchaOrder' : 'selectedCaptchaStatus';
         document.getElementById(hiddenInputId).value = iconElement.getAttribute('data-value');
     }
 
-    // جلب كابتشا جديدة
     async function fetchNewCaptcha() {
         try {
-            const icons = ['fa-car', 'fa-tree', 'fa-flag', 'fa-motorcycle', 'fa-server', 'fa-shoe-prints', 'fa-plane', 'fa-desktop'];
-            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            const response = await fetch('', { method: 'GET' });
+            const html = await response.text();
             
-            const questions = [
-                `اضغط على أيقونة الـ ${getIconName(randomIcon)}`,
-                `اختر ${getIconName(randomIcon)}`,
-                `انقر على ${getIconName(randomIcon)}`,
-                `حدد رمز ${getIconName(randomIcon)}`
-            ];
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
             
-            const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+            const newNonce = doc.getElementById('nonceKey').value;
+            const newRequestID = doc.getElementById('requestID').value;
+            const newKey1 = doc.getElementById('fragmentKey1').value;
+            const newKey2 = doc.getElementById('fragmentKey2').value;
+            const newQuestionText = doc.getElementById('captchaQuestion').textContent.trim();
             
-            document.getElementById('captchaQuestion').textContent = randomQuestion;
-            document.getElementById('captchaQuestionMass').textContent = randomQuestion;
-            document.getElementById('captchaQuestionStatus').textContent = randomQuestion;
+            // تحديث المفاتيح المشفرة الجديدة
+            document.getElementById('nonceKey').value = newNonce;
+            document.getElementById('requestID').value = newRequestID;
+            document.getElementById('fragmentKey1').value = newKey1;
+            document.getElementById('fragmentKey2').value = newKey2;
             
-            // إعادة ترتيب الأيقونات عشوائياً
-            shuffleIcons('captchaImagesChannel');
-            shuffleIcons('captchaImagesMass');
-            shuffleIcons('captchaImagesStatus');
+            document.getElementById('captchaQuestion').textContent = newQuestionText;
+            document.getElementById('captchaQuestionStatus').textContent = newQuestionText;
             
-            // مسح الاختيارات السابقة
-            document.getElementById('selectedCaptchaChannel').value = '';
-            document.getElementById('selectedCaptchaMass').value = '';
+            document.getElementById('selectedCaptchaOrder').value = '';
             document.getElementById('selectedCaptchaStatus').value = '';
             
             document.querySelectorAll('.captcha-icon').forEach(icon => {
                 icon.classList.remove('selected');
             });
             
+            // تحديث الأيقونات للعرض العشوائي في كل تبويبة
+            // يجب إعادة إنشاء عناصر الأيقونات بالكامل لضمان اختيار أيقونات جديدة من الجلسة الجديدة
+            const newOrderIconsContainer = doc.getElementById('captchaImagesOrder');
+            const newStatusIconsContainer = doc.getElementById('captchaImagesStatus');
+
+            if (newOrderIconsContainer) document.getElementById('captchaImagesOrder').outerHTML = newOrderIconsContainer.outerHTML;
+            if (newStatusIconsContainer) document.getElementById('captchaImagesStatus').outerHTML = newStatusIconsContainer.outerHTML;
+
+
         } catch(e) {
             document.getElementById('captchaQuestion').textContent = 'خطأ في تحميل الحماية';
-            document.getElementById('captchaQuestionMass').textContent = 'خطأ في تحميل الحماية';
             document.getElementById('captchaQuestionStatus').textContent = 'خطأ في تحميل الحماية';
         }
     }
 
-    // الحصول على اسم الأيقونة بالعربية
-    function getIconName(iconClass) {
-        const iconNames = {
-            'fa-car': 'سيارة',
-            'fa-tree': 'شجرة',
-            'fa-flag': 'علم',
-            'fa-motorcycle': 'دراجة',
-            'fa-server': 'خادم',
-            'fa-shoe-prints': 'حذاء',
-            'fa-plane': 'طائرة',
-            'fa-desktop': 'كمبيوتر'
-        };
-        return iconNames[iconClass] || 'أيقونة';
-    }
-
-    // خلط الأيقونات عشوائياً
-    function shuffleIcons(containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        const icons = Array.from(container.children);
-        for (let i = icons.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            container.appendChild(icons[j]);
-        }
-    }
-
-    // تبديل التبويبات
     function switchTab(tab) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('[id$="Section"]').forEach(section => {
-            section.classList.add('hidden');
-        });
-        
-        document.getElementById(`${tab}Section`).classList.remove('hidden');
-        
-        // إيجاد التبويب المناسب وتفعيله
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach((t, index) => {
-            if (t.textContent.includes(getTabName(tab))) {
-                t.classList.add('active');
-            }
-        });
-        
-        document.getElementById('resultBox').classList.add('hidden');
+        if(tab === 'order') {
+            document.querySelectorAll('.tab')[0].classList.add('active');
+            document.getElementById('orderSection').classList.remove('hidden');
+            document.getElementById('statusSection').classList.add('hidden');
+        } else {
+            document.querySelectorAll('.tab')[1].classList.add('active');
+            document.getElementById('statusSection').classList.remove('hidden');
+            document.getElementById('orderSection').classList.add('hidden');
+        }
+        document.getElementById('resultBox').style.display = 'none';
         fetchNewCaptcha();
     }
 
-    // الحصول على اسم التبويب
-    function getTabName(tabKey) {
-        const tabNames = {
-            'channel': 'فحص القناة',
-            'massAttack': 'هجوم جماعي',
-            'status': 'متابعة الطلب',
-            'settings': 'الإعدادات'
-        };
-        return tabNames[tabKey] || tabKey;
-    }
-
-    // جلب منشورات القناة
-    async function fetchChannelPosts() {
-        const channelInput = document.getElementById('channelInput').value.trim();
-        const fetchBtn = document.getElementById('fetchBtn');
-        
-        if (!channelInput) {
-            showResult('❌ الرجاء إدخال معرف القناة', false);
-            return;
-        }
-        
-        fetchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الفحص...';
-        fetchBtn.disabled = true;
-        
-        showResult('🔍 جاري فحص القناة وجلب المنشورات...', true);
-        
-        try {
-            // محاكاة جلب البيانات (في الواقع الفعلي، تحتاج إلى API حقيقي)
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // تنظيف الإدخال لاستخراج المعرف
-            let channelName = channelInput.replace('https://t.me/', '')
-                                         .replace('@', '')
-                                         .trim();
-            
-            currentChannel = channelName;
-            
-            // إنشاء منشورات وهمية (في الواقع الفعلي، ستحتاج إلى جلبها من Telegram API)
-            channelPosts = [];
-            for (let i = 1; i <= 15; i++) {
-                channelPosts.push({
-                    id: i,
-                    url: `https://t.me/${channelName}/${i}`,
-                    date: new Date(Date.now() - i * 86400000).toLocaleDateString('ar-AR')
-                });
-            }
-            
-            // عرض المنشورات
-            displayPosts();
-            
-            // إظهار زر الهجوم الجماعي
-            document.getElementById('massAttackBtn').classList.remove('hidden');
-            document.getElementById('postsContainer').classList.remove('hidden');
-            
-            showResult(`✅ تم العثور على ${channelPosts.length} منشور في القناة @${channelName}`, true);
-            
-            // التبديل إلى تبويب الهجوم الجماعي
-            setTimeout(() => switchTab('massAttack'), 1000);
-            
-        } catch (error) {
-            showResult(`❌ خطأ في جلب المنشورات: ${error.message}`, false);
-        } finally {
-            fetchBtn.innerHTML = '<i class="fas fa-search"></i> فحص';
-            fetchBtn.disabled = false;
-        }
-    }
-
-    // عرض المنشورات
-    function displayPosts() {
-        const postsList = document.getElementById('postsList');
-        postsList.innerHTML = '';
-        
-        channelPosts.forEach(post => {
-            const postElement = document.createElement('div');
-            postElement.className = 'post-item';
-            postElement.innerHTML = `
-                <div class="post-url">
-                    <i class="fas fa-link"></i> ${post.url}
-                </div>
-                <div class="post-count">${settings.reactionsPerPost.toLocaleString()} تفاعل</div>
-            `;
-            postsList.appendChild(postElement);
-        });
-        
-        // تحديث الإحصائيات
-        updateAttackStats();
-    }
-
-    // تحديث إحصائيات الهجوم
-    function updateAttackStats() {
-        document.getElementById('totalPosts').textContent = channelPosts.length;
-        document.getElementById('attackedPosts').textContent = '0';
-        document.getElementById('remainingPosts').textContent = channelPosts.length;
-        document.getElementById('totalReactions').textContent = (channelPosts.length * settings.reactionsPerPost).toLocaleString();
-    }
-
-    // بدء الهجوم الجماعي
-    function startMassAttack() {
-        switchTab('massAttack');
-    }
-
-    // تنفيذ الهجوم الجماعي
-    async function executeMassAttack() {
-        const captchaAnswer = document.getElementById('selectedCaptchaMass').value;
-        
-        if (!captchaAnswer) {
-            showResult('❌ الرجاء اختيار الأيقونة المطلوبة في الكابتشا', false);
-            return;
-        }
-        
-        if (channelPosts.length === 0) {
-            showResult('❌ لم يتم العثور على أي منشورات للهجوم', false);
-            return;
-        }
-        
-        isAttackRunning = true;
-        document.getElementById('executeAttackBtn').style.display = 'none';
-        document.getElementById('stopAttackBtn').style.display = 'block';
-        
-        showResult('⚡ بدء الهجوم الجماعي على جميع المنشورات...', true);
-        
-        let attackedCount = 0;
-        const totalPosts = channelPosts.length;
-        
-        for (let i = 0; i < totalPosts && isAttackRunning; i++) {
-            const post = channelPosts[i];
-            
-            try {
-                // إرسال طلب الهجوم للمنشور
-                await attackPost(post);
-                attackedCount++;
-                
-                // تحديث الإحصائيات
-                document.getElementById('attackedPosts').textContent = attackedCount;
-                document.getElementById('remainingPosts').textContent = totalPosts - attackedCount;
-                
-                showResult(`✅ تم رشق المنشور ${i+1}/${totalPosts}: ${post.url}`, true);
-                
-                // تأخير بين المنشورات
-                if (i < totalPosts - 1 && isAttackRunning) {
-                    await new Promise(resolve => setTimeout(resolve, settings.delayBetweenPosts * 1000));
-                }
-                
-            } catch (error) {
-                showResult(`⚠️ فشل في رشق المنشور ${i+1}: ${error.message}`, false);
-            }
-        }
-        
-        if (isAttackRunning) {
-            showResult(`🎉 تم الانتهاء من الهجوم الجماعي! تم رشق ${attackedCount} منشور بـ ${settings.reactionsPerPost} تفاعل لكل منها`, true);
-        } else {
-            showResult('⏹️ تم إيقاف الهجوم الجماعي', false);
-        }
-        
-        // إعادة تعيين الحالة
-        isAttackRunning = false;
-        document.getElementById('executeAttackBtn').style.display = 'block';
-        document.getElementById('stopAttackBtn').style.display = 'none';
-    }
-
-    // رشق منشور واحد
-    async function attackPost(post) {
+    async function submitOrder() {
+        const service = document.getElementById('serviceId').value;
+        const link = document.getElementById('link').value;
+        const quantity = document.getElementById('quantity').value;
+        const captchaAnswer = document.getElementById('selectedCaptchaOrder').value;
         const nonceKey = document.getElementById('nonceKey').value;
         const requestID = document.getElementById('requestID').value;
         const key1 = document.getElementById('fragmentKey1').value;
         const key2 = document.getElementById('fragmentKey2').value;
+        const btn = document.getElementById('orderBtn');
         
+        if(!link || !quantity || !captchaAnswer) {
+            showResult('الرجاء تعبئة جميع الحقول واختيار الأيقونة المطلوبة', false);
+            return;
+        }
+
+        setLoading(btn, true);
+
         const currentTimestamp = Math.floor(Date.now() / 1000);
         const nonceHash = complexHash(currentTimestamp, nonceKey, requestID);
-        
-        // تحديد نوع التفاعل
-        const reactionType = document.getElementById('reactionType').value;
-        let serviceId = '865'; // إيجابي افتراضياً
-        
-        if (reactionType === 'negative') {
-            serviceId = '866';
-        } else if (reactionType === 'mixed') {
-            serviceId = Math.random() > 0.5 ? '865' : '866';
+
+        const coreData = { type: 'order', service, link, quantity };
+        const paddedData = generateDecoyPayload(coreData); // إنشاء حمولة البيانات الضخمة
+        const encryptedFragments = fragmentAndEncryptPayload(paddedData, key1, key2); // تشفير وتجزئة الحمولة الضخمة
+
+        try {
+            const req = await fetch('', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ 
+                    ...encryptedFragments,
+                    captcha_answer: captchaAnswer, 
+                    nonce_hash: nonceHash,
+                    timestamp: currentTimestamp, 
+                    request_id: requestID 
+                })
+            });
+            const res = await req.json();
+
+            if(res.order) {
+                showResult(`✅ تم استلام الطلب بنجاح والبدء في المعالجة.<br>رقم الطلب: <b>${res.order}</b>`, true);
+            } else {
+                showResult(`❌ خطأ: ${res.error || 'حدث خطأ غير معروف'}`, false);
+            }
+        } catch(e) {
+            showResult('❌ حدث خطأ في الاتصال', false);
         }
-        
-        const coreData = {
-            type: 'mass_attack',
-            post_url: post.url,
-            reactions: settings.reactionsPerPost,
-            service_id: serviceId,
-            channel: currentChannel
-        };
-        
-        const paddedData = generateDecoyPayload(coreData);
-        const encryptedFragments = fragmentAndEncryptPayload(paddedData, key1, key2);
-        
-        // محاكاة إرسال الطلب (في الواقع الفعلي، سترسل إلى API حقيقي)
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // محاكاة استجابة ناجحة
-        return { success: true, order_id: Math.floor(Math.random() * 1000000) };
+        setLoading(btn, false);
+        fetchNewCaptcha();
     }
 
-    // إيقاف الهجوم
-    function stopAttack() {
-        isAttackRunning = false;
-        document.getElementById('executeAttackBtn').style.display = 'block';
-        document.getElementById('stopAttackBtn').style.display = 'none';
-        showResult('⏹️ يتم إيقاف الهجوم...', false);
-    }
-
-    // فحص حالة الطلب
     async function checkStatus() {
         const order_id = document.getElementById('orderIdInput').value;
         const captchaAnswer = document.getElementById('selectedCaptchaStatus').value;
-        
+        const nonceKey = document.getElementById('nonceKey').value;
+        const requestID = document.getElementById('requestID').value;
+        const key1 = document.getElementById('fragmentKey1').value;
+        const key2 = document.getElementById('fragmentKey2').value;
+        const btn = document.getElementById('statusBtn');
+
         if(!order_id || !captchaAnswer) {
-            showResult('❌ الرجاء تعبئة رقم الطلب واختيار الأيقونة المطلوبة', false);
+            showResult('الرجاء تعبئة رقم الطلب واختيار الأيقونة المطلوبة', false);
             return;
         }
+
+        setLoading(btn, true);
+
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+        const nonceHash = complexHash(currentTimestamp, nonceKey, requestID);
         
-        const btn = document.getElementById('statusBtn');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الفحص...';
-        btn.disabled = true;
-        
+        const coreData = { type: 'status', order_id };
+        const paddedData = generateDecoyPayload(coreData); // إنشاء حمولة البيانات الضخمة
+        const encryptedFragments = fragmentAndEncryptPayload(paddedData, key1, key2); // تشفير وتجزئة الحمولة الضخمة
+
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            // محاكاة استجابة فحص الحالة
-            const statuses = ['مكتمل', 'قيد المعالجة', 'معلق'];
-            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-            
-            showResult(`📊 حالة الطلب #${order_id}: <b>${randomStatus}</b><br>
-                      التفاعلات المرسلة: ${settings.reactionsPerPost.toLocaleString()}<br>
-                      آخر تحديث: ${new Date().toLocaleString('ar-AR')}`, true);
-                      
+            const req = await fetch('', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ 
+                    ...encryptedFragments,
+                    captcha_answer: captchaAnswer, 
+                    nonce_hash: nonceHash,
+                    timestamp: currentTimestamp,
+                    request_id: requestID
+                })
+            });
+            const res = await req.json();
+
+            if(res.success) {
+                showResult(`
+                    ✅ تم طلب فحص الحالة بنجاح.<br>
+                    تم تحديث الحالة في الخلفية. 
+                `, true);
+            } else {
+                showResult(`❌ خطأ: ${res.error || 'رقم الطلب غير صحيح'}`, false);
+            }
         } catch(e) {
             showResult('❌ حدث خطأ في الاتصال', false);
-        } finally {
-            btn.innerHTML = '<i class="fas fa-sync-alt"></i> فحص الحالة';
-            btn.disabled = false;
         }
-        
+        setLoading(btn, false);
         fetchNewCaptcha();
     }
 
-    // عرض النتائج
     function showResult(msg, isSuccess) {
         const box = document.getElementById('resultBox');
+        box.style.display = 'block';
         box.className = 'result ' + (isSuccess ? 'success' : 'error');
         box.innerHTML = msg;
-        box.classList.remove('hidden');
-        
-        // إخفاء الرسالة بعد 5 ثواني
-        setTimeout(() => {
-            box.classList.add('hidden');
-        }, 5000);
     }
 
-    // التهيئة عند التحميل
+    function setLoading(btn, isLoading) {
+        if(isLoading) {
+            btn.querySelector('.btn-text').style.display = 'none';
+            btn.querySelector('.loader').style.display = 'block';
+            btn.disabled = true;
+        } else {
+            btn.querySelector('.btn-text').style.display = 'block';
+            btn.querySelector('.loader').style.display = 'none';
+            btn.disabled = false;
+        }
+    }
+
     window.onload = function() {
-        loadSettings();
         fetchNewCaptcha();
-        
-        // إضافة أيقونات إضافية للكابتشا
-        const icons = ['fa-telegram', 'fa-bolt', 'fa-fire', 'fa-heart', 'fa-star', 'fa-thumbs-up'];
-        icons.forEach(icon => {
-            const iconElement = document.createElement('i');
-            iconElement.className = `captcha-icon fas ${icon}`;
-            iconElement.setAttribute('data-value', `fas ${icon}`);
-            iconElement.onclick = function() { selectCaptcha(this, 'channel'); };
-            
-            // إضافة لأحد الحاويات (يمكن إضافتها للجميع)
-            document.getElementById('captchaImagesChannel').appendChild(iconElement.cloneNode(true));
-        });
     };
 </script>
 </body>
-    </html>
+</html>
+
