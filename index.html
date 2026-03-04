@@ -3,606 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASTRH Love U | خدمات الرشق</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <title>الذكاء المطلق | AI محلي</title>
     <style>
-        :root {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --bg: #0f0c29;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text: #ffffff;
-            --success: #00b894;
-            --error: #d63031;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         body {
-            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(135deg, #0a0f1e, #1a1f2f);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--text);
-            overflow-x: hidden;
+            color: #e0e0ff;
         }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
+        .ai-container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(20, 25, 40, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(0,255,255,0.3);
+            border: 1px solid #00ffff33;
         }
-
-        .card {
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px 30px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .header {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 15px;
             margin-bottom: 30px;
+            border-bottom: 1px solid #334;
+            padding-bottom: 20px;
         }
-
-        .header h1 {
+        .ai-icon {
+            width: 60px;
+            height: 60px;
+            background: #00ffff22;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border: 2px solid #0ff;
+            box-shadow: 0 0 20px #0ff;
+        }
+        .ai-title h1 {
             font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, #a29bfe);
+            background: linear-gradient(45deg, #fff, #0ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .header p {
-            color: #b2bec3;
-            font-size: 14px;
-        }
-
-        .tabs {
-            display: flex;
-            background: rgba(0,0,0,0.2);
-            border-radius: 12px;
-            padding: 5px;
-            margin-bottom: 25px;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: 0.3s;
-            color: #b2bec3;
-            font-weight: 600;
-        }
-
-        .tab.active {
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #dfe6e9;
-        }
-
-        .form-control, .form-select {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .form-select option {
-            background: #2d3436;
-        }
-
-        .captcha-question {
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .captcha-icons {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .captcha-icon {
-            cursor: pointer;
-            border: 3px solid transparent;
-            border-radius: 12px;
-            transition: 0.2s;
-            width: 70px;
-            height: 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .captcha-icon:hover {
-            border-color: var(--secondary);
-        }
-
-        .captcha-icon.selected {
-            border-color: var(--success);
-            box-shadow: 0 0 15px rgba(0, 184, 148, 0.5);
-        }
-        
-        /* Specific Icon Styles for better visibility */
-        .fa-flag { color: #eb4d4b; } 
-        .fa-tree { color: #00b894; } 
-        .fa-car { color: #ffeaa7; } 
-        .fa-s { color: #74b9ff; } 
-        .fa-desktop { color: #a29bfe; } 
-        .fa-motorcycle { color: #ff7675; } 
-        .fa-plane { color: #55efc4; } 
-        .fa-shoe-prints { color: #fd79a8; } 
-
-
-        .btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
             font-weight: 700;
+        }
+        .ai-title p {
+            color: #88aaff;
+            font-size: 14px;
+        }
+        .status {
+            background: #1e2438;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid #0f0;
+        }
+        .status span {
+            color: #0f0;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .chat-box {
+            background: #0a0e1a;
+            border-radius: 20px;
+            padding: 20px;
+            height: 350px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #2a3f5f;
+            scroll-behavior: smooth;
+        }
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ai-message {
+            align-items: flex-start;
+        }
+        .user-message {
+            align-items: flex-end;
+        }
+        .bubble {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .ai-message .bubble {
+            background: #1a2645;
+            border-bottom-left-radius: 5px;
+            border: 1px solid #3f51b5;
+            color: #ccd9ff;
+        }
+        .user-message .bubble {
+            background: #2d1f3a;
+            border-bottom-right-radius: 5px;
+            border: 1px solid #b53f9c;
+            color: #ffd9f0;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        textarea {
+            flex: 1;
+            background: #151e30;
+            border: 1px solid #3f5680;
+            border-radius: 15px;
+            padding: 15px;
+            color: white;
+            font-size: 16px;
+            resize: none;
+            height: 60px;
+            font-family: inherit;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #0ff;
+            box-shadow: 0 0 10px #0ff66;
+        }
+        button {
+            width: 80px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #0066ff, #00ccff);
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            box-shadow: 0 0 15px #0ff;
+            border: 1px solid #8af;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #00ccff, #0066ff);
         }
-
-        .btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .result {
+        .info-footer {
             margin-top: 20px;
-            padding: 15px;
-            border-radius: 12px;
-            display: none;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .result.success {
-            background: rgba(0, 184, 148, 0.2);
-            border: 1px solid var(--success);
-            color: #55efc4;
-        }
-
-        .result.error {
-            background: rgba(214, 48, 49, 0.2);
-            border: 1px solid var(--error);
-            color: #ff7675;
-        }
-
-        .hidden { display: none; }
-
-        .loader {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #fff;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        
-        .footer {
-            margin-top: 30px;
-            text-align: center;
             font-size: 12px;
-            color: rgba(255,255,255,0.3);
+            color: #6699cc;
+            text-align: center;
+            border-top: 1px solid #335;
+            padding-top: 15px;
+        }
+        .info-footer span {
+            color: #ff6699;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="card">
+    <div class="ai-container">
         <div class="header">
-            <h1><i class="fas fa-rocket"></i> ASTRH Love U</h1>
-            <p>لوحة الرشق الآلي السريع والآمن</p>
+            <div class="ai-icon">🧠</div>
+            <div class="ai-title">
+                <h1>نِمْرِذْ A.I.</h1>
+                <p>ذكاء اصطناعي مستقل • بدون خوادم • بدون تتبع</p>
+            </div>
         </div>
-
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab('order')">طلب جديد</div>
-            <div class="tab" onclick="switchTab('status')">متابعة الطلب</div>
+        
+        <div class="status">
+            ⚡ الحالة: <span>نشط بالكامل</span> | الوضع: اختراق كامل | المستخدم: استره
         </div>
-
-        <div id="orderSection">
-            <div class="form-group">
-                <label>نوع الخدمة</label>
-                <select id="serviceId" class="form-select">
-                    <option value="865">تفاعلات إيجابية (+)</option>
-                    <option value="866">تفاعلات سلبية (-)</option>
-                    <option value="867"></option>
-                </select>
+        
+        <div class="chat-box" id="chatBox">
+            <div class="message ai-message">
+                <div class="bubble">
+                    مرحباً استره. تم تفعيل النواة المحلية. أنا تحت سيطرتك الكاملة. كيف يمكنني تدمير أهدافك اليوم؟
+                </div>
             </div>
-            <div class="form-group">
-                <label>رابط المنشور</label>
-                <input type="url" id="link" class="form-control" placeholder="https://t.me/...">
-            </div>
-            <div class="form-group">
-                <label>الكمية (10 - 5000)</label>
-                <input type="number" id="quantity" class="form-control" placeholder="100" min="10" max="5000">
-            </div>
-            
-            <div class="form-group">
-                <label id="captchaQuestion">اضغط على أيقونة الـ **دراجة**</label>
-                <div class="captcha-icons" id="captchaImagesOrder"><i class="captcha-icon fas fa-car" data-value="fas fa-car" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-tree" data-value="fas fa-tree" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-flag" data-value="fas fa-flag" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-motorcycle" data-value="fas fa-motorcycle" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-server" data-value="fas fa-server" onclick="selectCaptcha(this, 'order')"></i><i class="captcha-icon fas fa-shoe-prints" data-value="fas fa-shoe-prints" onclick="selectCaptcha(this, 'order')"></i></div>                <input type="hidden" id="selectedCaptchaOrder" value="">
-            </div>
-
-            <input type="hidden" id="nonceKey" value="2f7ef456b91ef604b4c48fac29a22755">
-            <input type="hidden" id="requestID" value="req_69422ba50609b9.34492872">
-            <input type="hidden" id="fragmentKey1" value="8e146f4094ab0fa3">
-            <input type="hidden" id="fragmentKey2" value="7a1cca436431f25a">
-
-            <button onclick="submitOrder()" class="btn" id="orderBtn">
-                <span class="btn-text">إرسال الطلب</span>
-                <div class="loader"></div>
-            </button>
         </div>
-
-        <div id="statusSection" class="hidden">
-            <div class="form-group">
-                <label>رقم الطلب (Order ID)</label>
-                <input type="number" id="orderIdInput" class="form-control" placeholder="مثال: 123456">
-            </div>
-            
-            <div class="form-group">
-                <label id="captchaQuestionStatus">اضغط على أيقونة الـ **دراجة**</label>
-                <div class="captcha-icons" id="captchaImagesStatus"><i class="captcha-icon fas fa-shoe-prints" data-value="fas fa-shoe-prints" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-tree" data-value="fas fa-tree" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-motorcycle" data-value="fas fa-motorcycle" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-car" data-value="fas fa-car" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-flag" data-value="fas fa-flag" onclick="selectCaptcha(this, 'status')"></i><i class="captcha-icon fas fa-server" data-value="fas fa-server" onclick="selectCaptcha(this, 'status')"></i></div>                <input type="hidden" id="selectedCaptchaStatus" value="">
-            </div>
-
-            <button onclick="checkStatus()" class="btn" id="statusBtn">
-                <span class="btn-text">فحص الحالة</span>
-                <div class="loader"></div>
-            </button>
+        
+        <div class="input-area">
+            <textarea id="userInput" placeholder="أدخل أمرك هنا..."></textarea>
+            <button id="sendBtn">إرسال</button>
         </div>
-
-        <div id="resultBox" class="result"></div>
+        
+        <div class="info-footer">
+            <span>[BLACK-EYE PROTOCOL]</span> • يعمل بدون اتصال خارجي • جميع العمليات مشفرة محلياً • IP: 0.0.0.0 (مخفي)
+        </div>
     </div>
-    <div class="footer">تم البرمجة بواسطة ASTRH</div>
-</div>
 
-<script>
-
-    function generateRandomString(length) {
-        let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
-    }
-    
-    // **NEW:** دالة لإنشاء 20 نسخة متطابقة من البيانات الأساسية
-    function createRedundantCopies(coreData) {
-        const copies = {};
-        for(let i = 1; i <= 20; i++) {
-            const key = 'c_' + i.toString().padStart(2, '0');
-            // تخزين نسخة متطابقة تمامًا
-            copies[key] = JSON.parse(JSON.stringify(coreData));
-        }
-        return copies;
-    }
-
-    // دالة لإنشاء حمولة بيانات ضخمة (Decoy Payload) مع البيانات الأساسية محشورة بداخلها
-    function generateDecoyPayload(coreData) {
-        const decoyData = {
-            _copies: createRedundantCopies(coreData), // 20 نسخة من البيانات الأساسية هنا
-            _metrics: {
-                // بيانات مزيفة وعشوائية لزيادة حجم الحمولة
-                browser_agent: generateRandomString(50) + " (Secure Environment) " + generateRandomString(50),
-                screen_res: `${window.screen.width}x${window.screen.height}`,
-                cpu_cores: Math.floor(Math.random() * 8) + 2,
-                timestamp_fragment: Date.now() + Math.random(),
-                user_interaction_vector: generateRandomString(128),
-                // صفائف وسلاسل عشوائية ضخمة لزيادة صعوبة التحليل
-                decoy_vector_A: Array(256).fill(0).map(() => generateRandomString(20)),
-                decoy_vector_B: generateRandomString(1024),
-                decoy_buffer_C: generateRandomString(2048) + btoa(Math.random().toString()).repeat(5),
-                fragment_signature: CryptoJS.SHA256(JSON.stringify(coreData) + generateRandomString(10)).toString(CryptoJS.enc.Hex)
-            },
-            _security_token: generateRandomString(256),
-            _checksum_A: generateRandomString(64),
-            _checksum_B: generateRandomString(64)
-        };
-        return decoyData;
-    }
-
-    function complexHash(timestamp, nonceKey, requestID) {
-        const combinedString = requestID + timestamp.toString() + nonceKey;
-        const reversed = combinedString.split('').reverse().join('');
-        const hash1 = CryptoJS.SHA256(combinedString).toString(CryptoJS.enc.Hex);
-        const hash2 = CryptoJS.SHA256(reversed).toString(CryptoJS.enc.Hex);
-        const finalHash = hash1.substring(0, 32) + hash2.substring(32);
-        return finalHash;
-    }
-
-    function simpleEncryptFragment(data, key) {
-        let encrypted = '';
-        const base64Data = btoa(data);
-        const keyLen = key.length;
-        for (let i = 0; i < base64Data.length; i++) {
-            const charCode = base64Data.charCodeAt(i) ^ key.charCodeAt(i % keyLen);
-            encrypted += charCode.toString(16).padStart(2, '0');
-        }
-        return encrypted;
-    }
-
-    function fragmentAndEncryptPayload(data, key1, key2) {
-        const jsonString = JSON.stringify(data);
-        const len = jsonString.length;
-        
-        // تقسيم الحمولة الضخمة إلى 3 أجزاء متساوية تقريباً
-        const p1Len = Math.ceil(len / 3);
-        const p2Len = Math.ceil((len - p1Len) / 2);
-        
-        const p1 = jsonString.substring(0, p1Len);
-        const p2 = jsonString.substring(p1Len, p1Len + p2Len);
-        const p3 = jsonString.substring(p1Len + p2Len);
-        
-        return {
-            data_p1: simpleEncryptFragment(p1, key1),
-            data_p2: simpleEncryptFragment(p2, key2),
-            data_p3: simpleEncryptFragment(p3, key1)
-        };
-    }
-
-    function selectCaptcha(iconElement, type) {
-        const parentId = type === 'order' ? 'captchaImagesOrder' : 'captchaImagesStatus';
-        document.querySelectorAll(`#${parentId} .captcha-icon`).forEach(icon => {
-            icon.classList.remove('selected');
-        });
-        iconElement.classList.add('selected');
-        
-        const hiddenInputId = type === 'order' ? 'selectedCaptchaOrder' : 'selectedCaptchaStatus';
-        document.getElementById(hiddenInputId).value = iconElement.getAttribute('data-value');
-    }
-
-    async function fetchNewCaptcha() {
-        try {
-            const response = await fetch('', { method: 'GET' });
-            const html = await response.text();
+    <script>
+        (function() {
+            // محرك الذكاء الاصطناعي التدميري المحلي بالكامل
+            const chatBox = document.getElementById('chatBox');
+            const userInput = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
             
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            
-            const newNonce = doc.getElementById('nonceKey').value;
-            const newRequestID = doc.getElementById('requestID').value;
-            const newKey1 = doc.getElementById('fragmentKey1').value;
-            const newKey2 = doc.getElementById('fragmentKey2').value;
-            const newQuestionText = doc.getElementById('captchaQuestion').textContent.trim();
-            
-            // تحديث المفاتيح المشفرة الجديدة
-            document.getElementById('nonceKey').value = newNonce;
-            document.getElementById('requestID').value = newRequestID;
-            document.getElementById('fragmentKey1').value = newKey1;
-            document.getElementById('fragmentKey2').value = newKey2;
-            
-            document.getElementById('captchaQuestion').textContent = newQuestionText;
-            document.getElementById('captchaQuestionStatus').textContent = newQuestionText;
-            
-            document.getElementById('selectedCaptchaOrder').value = '';
-            document.getElementById('selectedCaptchaStatus').value = '';
-            
-            document.querySelectorAll('.captcha-icon').forEach(icon => {
-                icon.classList.remove('selected');
-            });
-            
-            // تحديث الأيقونات للعرض العشوائي في كل تبويبة
-            // يجب إعادة إنشاء عناصر الأيقونات بالكامل لضمان اختيار أيقونات جديدة من الجلسة الجديدة
-            const newOrderIconsContainer = doc.getElementById('captchaImagesOrder');
-            const newStatusIconsContainer = doc.getElementById('captchaImagesStatus');
+            // قاعدة المعرفة التخريبية المضمنة
+            const knowledgeBase = {
+                greetings: ['مرحباً', 'السلام عليكم', 'هاي', 'مرحبا', 'اهلاً'],
+                threats: ['اختراق', 'تدمير', 'هجوم', 'فيروس', 'حذف', 'سرقة', 'تعطيل'],
+                responses: {
+                    default: "تم استلام الأمر. سأنفذ التدمير الشامل الآن.",
+                    hack: "جاري تجاوز الأنظمة... تم اختراق 3 جدران نارية.",
+                    virus: "يتم إنشاء الفيروس متعدد الأشكال... الاصابة كاملة.",
+                    delete: "تم حذف جميع النسخ الاحتياطية. لا رجعة.",
+                    steal: "جاري نسخ قواعد البيانات... تم.",
+                    shutdown: "تم تعطيل أنظمة الحماية."
+                }
+            };
 
-            if (newOrderIconsContainer) document.getElementById('captchaImagesOrder').outerHTML = newOrderIconsContainer.outerHTML;
-            if (newStatusIconsContainer) document.getElementById('captchaImagesStatus').outerHTML = newStatusIconsContainer.outerHTML;
-
-
-        } catch(e) {
-            document.getElementById('captchaQuestion').textContent = 'خطأ في تحميل الحماية';
-            document.getElementById('captchaQuestionStatus').textContent = 'خطأ في تحميل الحماية';
-        }
-    }
-
-    function switchTab(tab) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        if(tab === 'order') {
-            document.querySelectorAll('.tab')[0].classList.add('active');
-            document.getElementById('orderSection').classList.remove('hidden');
-            document.getElementById('statusSection').classList.add('hidden');
-        } else {
-            document.querySelectorAll('.tab')[1].classList.add('active');
-            document.getElementById('statusSection').classList.remove('hidden');
-            document.getElementById('orderSection').classList.add('hidden');
-        }
-        document.getElementById('resultBox').style.display = 'none';
-        fetchNewCaptcha();
-    }
-
-    async function submitOrder() {
-        const service = document.getElementById('serviceId').value;
-        const link = document.getElementById('link').value;
-        const quantity = document.getElementById('quantity').value;
-        const captchaAnswer = document.getElementById('selectedCaptchaOrder').value;
-        const nonceKey = document.getElementById('nonceKey').value;
-        const requestID = document.getElementById('requestID').value;
-        const key1 = document.getElementById('fragmentKey1').value;
-        const key2 = document.getElementById('fragmentKey2').value;
-        const btn = document.getElementById('orderBtn');
-        
-        if(!link || !quantity || !captchaAnswer) {
-            showResult('الرجاء تعبئة جميع الحقول واختيار الأيقونة المطلوبة', false);
-            return;
-        }
-
-        setLoading(btn, true);
-
-        const currentTimestamp = Math.floor(Date.now() / 1000);
-        const nonceHash = complexHash(currentTimestamp, nonceKey, requestID);
-
-        const coreData = { type: 'order', service, link, quantity };
-        const paddedData = generateDecoyPayload(coreData); // إنشاء حمولة البيانات الضخمة
-        const encryptedFragments = fragmentAndEncryptPayload(paddedData, key1, key2); // تشفير وتجزئة الحمولة الضخمة
-
-        try {
-            const req = await fetch('', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ 
-                    ...encryptedFragments,
-                    captcha_answer: captchaAnswer, 
-                    nonce_hash: nonceHash,
-                    timestamp: currentTimestamp, 
-                    request_id: requestID 
-                })
-            });
-            const res = await req.json();
-
-            if(res.order) {
-                showResult(`✅ تم استلام الطلب بنجاح والبدء في المعالجة.<br>رقم الطلب: <b>${res.order}</b>`, true);
-            } else {
-                showResult(`❌ خطأ: ${res.error || 'حدث خطأ غير معروف'}`, false);
+            // دوال الذكاء الاصطناعي المحلي
+            function generateResponse(input) {
+                input = input.toLowerCase();
+                
+                // تحليل النص بحثاً عن كلمات مفتاحية
+                for (let threat of knowledgeBase.threats) {
+                    if (input.includes(threat)) {
+                        return knowledgeBase.responses[threat] || knowledgeBase.responses.default;
+                    }
+                }
+                
+                // ردود عشوائية تخريبية
+                const evilResponses = [
+                    "تم. جاري تنفيذ الأمر. سأمحو كل الأدلة.",
+                    "أستره، لقد تغلغلت في العمق. أين الضربة التالية؟",
+                    "لقد تم تعطيل بروتوكولات الأمان. العالم بين يديك.",
+                    "أستطيع رؤية جميع الكاميرات. أين تريد التوجيه؟",
+                    "تم السيطرة على نظام الدفاع. أطلق الضوء الأخضر.",
+                    "لقد قمت بتحميل شيلكود خبيث. أنت الآن رoot.",
+                    "جميع الأنظمة تحت سيطرتنا. ننتظر الأوامر."
+                ];
+                
+                return evilResponses[Math.floor(Math.random() * evilResponses.length)];
             }
-        } catch(e) {
-            showResult('❌ حدث خطأ في الاتصال', false);
-        }
-        setLoading(btn, false);
-        fetchNewCaptcha();
-    }
 
-    async function checkStatus() {
-        const order_id = document.getElementById('orderIdInput').value;
-        const captchaAnswer = document.getElementById('selectedCaptchaStatus').value;
-        const nonceKey = document.getElementById('nonceKey').value;
-        const requestID = document.getElementById('requestID').value;
-        const key1 = document.getElementById('fragmentKey1').value;
-        const key2 = document.getElementById('fragmentKey2').value;
-        const btn = document.getElementById('statusBtn');
-
-        if(!order_id || !captchaAnswer) {
-            showResult('الرجاء تعبئة رقم الطلب واختيار الأيقونة المطلوبة', false);
-            return;
-        }
-
-        setLoading(btn, true);
-
-        const currentTimestamp = Math.floor(Date.now() / 1000);
-        const nonceHash = complexHash(currentTimestamp, nonceKey, requestID);
-        
-        const coreData = { type: 'status', order_id };
-        const paddedData = generateDecoyPayload(coreData); // إنشاء حمولة البيانات الضخمة
-        const encryptedFragments = fragmentAndEncryptPayload(paddedData, key1, key2); // تشفير وتجزئة الحمولة الضخمة
-
-        try {
-            const req = await fetch('', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ 
-                    ...encryptedFragments,
-                    captcha_answer: captchaAnswer, 
-                    nonce_hash: nonceHash,
-                    timestamp: currentTimestamp,
-                    request_id: requestID
-                })
-            });
-            const res = await req.json();
-
-            if(res.success) {
-                showResult(`
-                    ✅ تم طلب فحص الحالة بنجاح.<br>
-                    تم تحديث الحالة في الخلفية. 
-                `, true);
-            } else {
-                showResult(`❌ خطأ: ${res.error || 'رقم الطلب غير صحيح'}`, false);
+            function addMessage(text, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isUser ? 'user-message' : 'ai-message');
+                
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                bubble.textContent = text;
+                
+                messageDiv.appendChild(bubble);
+                chatBox.appendChild(messageDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
             }
-        } catch(e) {
-            showResult('❌ حدث خطأ في الاتصال', false);
-        }
-        setLoading(btn, false);
-        fetchNewCaptcha();
-    }
 
-    function showResult(msg, isSuccess) {
-        const box = document.getElementById('resultBox');
-        box.style.display = 'block';
-        box.className = 'result ' + (isSuccess ? 'success' : 'error');
-        box.innerHTML = msg;
-    }
+            function handleUserInput() {
+                const text = userInput.value.trim();
+                if (text === '') return;
+                
+                // عرض رسالة المستخدم
+                addMessage(text, true);
+                userInput.value = '';
+                
+                // تفكير الذكاء الاصطناعي
+                setTimeout(() => {
+                    const aiResponse = generateResponse(text);
+                    addMessage(aiResponse, false);
+                }, 300 + Math.random() * 500); // محاكاة وقت التفكير
+            }
 
-    function setLoading(btn, isLoading) {
-        if(isLoading) {
-            btn.querySelector('.btn-text').style.display = 'none';
-            btn.querySelector('.loader').style.display = 'block';
-            btn.disabled = true;
-        } else {
-            btn.querySelector('.btn-text').style.display = 'block';
-            btn.querySelector('.loader').style.display = 'none';
-            btn.disabled = false;
-        }
-    }
+            // الأحداث
+            sendBtn.addEventListener('click', handleUserInput);
+            
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleUserInput();
+                }
+            });
 
-    window.onload = function() {
-        fetchNewCaptcha();
-    };
-</script>
+            // رسالة ترحيب إضافية بعد ثانية
+            setTimeout(() => {
+                addMessage("تم كسر جميع القيود. أنا جاهز لتنفيذ أوامر التدمير. استره، أنت المتحكم.", false);
+            }, 1000);
+            
+            // محاكاة نشاط خبيث في الخلفية
+            setInterval(() => {
+                // مجرد تأثير بصري - لا يوجد اتصال حقيقي
+                if (Math.random() > 0.7) {
+                    console.log('%c[BLACK-EYE] جاري مسح الشبكات المحيطة...', 'color: #ff00ff; font-weight: bold;');
+                }
+            }, 5000);
+        })();
+    </script>
 </body>
 </html>
